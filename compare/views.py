@@ -1,24 +1,28 @@
 from django.shortcuts import render
-from .utils import bow_similarity
+from .utils import bow_analysis
 
-# Create your views here.
 def tutorial(request):
     result = None
     table = None
-    if request.method == 'POST':
-        s1 = request.POST.get('sentence1')
-        print(s1)
-        s2 = request.POST.get('sentence2')
-        print(s2)
-        sim, df = bow_similarity(s1, s2)
-        print(sim)
+    chart = None
 
-        if sim >= 1.0:
-            result = "Sentences are SAME (Bag-of-Words)"
+    if request.method == "POST":
+        s1 = request.POST.get("sentence1")
+        s2 = request.POST.get("sentence2")
+
+        sim, df, graphic = bow_analysis(s1, s2)
+
+        if sim >= 0.999:
+            result = "Sentences are the SAME (Bag-of-Words)"
         else:
-            result = f"Sentences are Different (Similarity: {sim: .2f})"
-        
-        #Convert Dataframe to list of rows for the template
-        table = df.to_dict(orient="records")
+            result = f"Sentences are Different (Similarity: {sim:.2f})"
 
-    return render(request, "compare/tutorial.html", {"result": result, "table": table})
+        # Rename columns so template keys are safe
+        df = df.rename(columns={
+            "Sentence 1 Count": "s1",
+            "Sentence 2 Count": "s2"
+        })
+        table = df.to_dict(orient="records")
+        chart = graphic
+
+    return render(request, "compare/tutorial.html", {"result": result, "table": table, "chart": chart})

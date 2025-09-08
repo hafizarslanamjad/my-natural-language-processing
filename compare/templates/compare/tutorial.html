@@ -80,11 +80,15 @@
                     {% for row in table %}
                         <tr>
                             <td>{{ row.Word }}</td>
-                            <td>{{ row.Sentence1Count }}</td>
-                            <td>{{ row.Sentence2Count }}</td>
+                            <td>{{ row.s1 }}</td>
+                            <td>{{ row.s2 }}</td>
                         </tr>
                     {% endfor %}
                 </table>
+            {% endif %}
+            {% if chart %}
+                <h3>Visualization</h3>
+                <img src="data:image/png;base64,{{ chart }}" alt="BoW Chart">
             {% endif %}
         </div>
     </body>
