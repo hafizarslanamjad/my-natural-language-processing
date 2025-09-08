@@ -1,0 +1,9 @@
+-r requirements.txt   # include all prod dependencies
+
+# NLP extras
+nltk
+spacy
+textblob
+
+# Development tools
+jupyter

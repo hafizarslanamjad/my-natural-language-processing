@@ -1,17 +1,7 @@
 Django>=4.2
 djangorestframework>=3.14
 gunicorn
-
-# NLP Libraries
-nltk
-spacy
 scikit-learn
-textblob
-
-# ML / Data libraries
 numpy
 pandas
 matplotlib
-
-# Optional: useful extras
-jupyter
